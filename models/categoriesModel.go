@@ -1,6 +1,12 @@
 package models
 
+import (
+	"github.com/jinzhu/gorm"
+)
+
 type Categories struct {
-	ID int `gorm:"primary_key"`
+	gorm.Model
 	Name string
+	CompanyID uint
+	IsDeleted int8
 }

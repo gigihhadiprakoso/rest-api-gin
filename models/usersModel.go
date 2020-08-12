@@ -4,11 +4,11 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-type Products struct {
+type Users struct {
 	gorm.Model
 	Name string
-	CategoryID uint
-	BrandID uint
+	Username string
+	Password string
 	CompanyID uint
 	IsDeleted int8
 }
