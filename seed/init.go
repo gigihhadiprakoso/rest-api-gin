@@ -10,12 +10,32 @@ import (
 var files, err = ioutil.ReadDir("./seed")
 
 func Load(db *gorm.DB){	
+	/*		Create Table Brands			*/
+	err = db.Debug().DropTableIfExists(&Brands{}).Error
+	if err != nil {
+		log.Fatalf("cannot drop table: %v", err)
+	}
+	err = db.Debug().AutoMigrate(&Brands{}).Error
+	if err != nil {
+		log.Fatalf("cannot migrate table: %v", err)
+	}
+
 	/*		Create Table Categories		*/
 	err = db.Debug().DropTableIfExists(&Categories{}).Error
 	if err != nil {
 		log.Fatalf("cannot drop table: %v", err)
 	}
 	err = db.Debug().AutoMigrate(&Categories{}).Error
+	if err != nil {
+		log.Fatalf("cannot migrate table: %v", err)
+	}
+
+	/*		Create Table Companies			*/
+	err = db.Debug().DropTableIfExists(&Companies{}).Error
+	if err != nil {
+		log.Fatalf("cannot drop table: %v", err)
+	}
+	err = db.Debug().AutoMigrate(&Companies{}).Error
 	if err != nil {
 		log.Fatalf("cannot migrate table: %v", err)
 	}
@@ -30,22 +50,12 @@ func Load(db *gorm.DB){
 		log.Fatalf("cannot migrate table: %v", err)
 	}
 
-	/*		Create Table Brands			*/
-	err = db.Debug().DropTableIfExists(&Brands{}).Error
+	/*		Create Table Tokens			*/
+	err = db.Debug().DropTableIfExists(&Tokens{}).Error
 	if err != nil {
 		log.Fatalf("cannot drop table: %v", err)
 	}
-	err = db.Debug().AutoMigrate(&Brands{}).Error
-	if err != nil {
-		log.Fatalf("cannot migrate table: %v", err)
-	}
-
-	/*		Create Table Companies			*/
-	err = db.Debug().DropTableIfExists(&Companies{}).Error
-	if err != nil {
-		log.Fatalf("cannot drop table: %v", err)
-	}
-	err = db.Debug().AutoMigrate(&Companies{}).Error
+	err = db.Debug().AutoMigrate(&Tokens{}).Error
 	if err != nil {
 		log.Fatalf("cannot migrate table: %v", err)
 	}
