@@ -6,8 +6,8 @@ import (
 	// "fmt"
 )
 
-func ResponseJSON(ctx *gin.Context, c int, data interface{}){
-	ctx.JSON(http.StatusOK, gin.H{"status":http.StatusOK, "code_error":c, "message":msgError(c), "data":data})
+func ResponseJSON(context *gin.Context, c int, data interface{}){
+	context.JSON(http.StatusOK, gin.H{"status":http.StatusOK, "code_error":c, "message":msgError(c), "data":data})
 }
 
 func msgError(code int) string {
@@ -17,5 +17,6 @@ func msgError(code int) string {
 	msg[101]="haloo"
 	msg[2]="error nama "
 	msg[998]="Error"
+	msg[997]="Username / password tidak tepat"
 	return msg[code]
 }
