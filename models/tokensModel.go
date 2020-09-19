@@ -3,6 +3,7 @@ package models
 import(
 	jwt "github.com/dgrijalva/jwt-go"
 	"time"
+	"strings"
 )
 
 type Tokens struct{
@@ -11,12 +12,32 @@ type Tokens struct{
 	IsDeleted int8
 }
 
+type Claims struct{
+	Username string `json:"username"`
+	UserID uint `json:"user_id"`
+	CompanyID uint `json:"company_id"`
+	jwt.StandardClaims
+}
 
-func CreateToken(user_id uint) (string, error) {
-	claims := jwt.MapClaims{}
-	claims["authorized"] = true
-	claims["user_id"] = user_id
-	claims["exp"] = time.Now().Add(time.Hour * 1).Unix() //Token expires after 1 hour
+
+func CreateToken(user Users) (string, error) {
+	claims := &Claims{
+		Username: user.Username,
+		UserID: user.ID,
+		CompanyID: user.CompanyID,
+		StandardClaims: jwt.StandardClaims{
+			ExpiresAt: time.Now().Add(time.Hour * 1).Unix(),
+		},
+	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	return token.SignedString([]byte("gigih-rupawan"))
+}
+
+func ExtractToken(auth string) string {
+	arrToken := strings.Split(auth, " ")
+
+	if len(arrToken) ==2{
+		return arrToken[1]
+	}
+	return ""
 }
