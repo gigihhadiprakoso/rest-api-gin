@@ -8,11 +8,8 @@ import (
 	// "rest-api-gin/config"
 	. "rest-api-gin/helpers"
 	"strconv"
-	// "fmt"
-	// "reflect"
 )
 
-// var db = config.ConnectDB()
 var p []Products
 
 func AddProduct(ctx *gin.Context){
@@ -24,6 +21,7 @@ func AddProduct(ctx *gin.Context){
 		Name: name, 
 		CategoryID: uint(category),
 		BrandID: uint(brand),
+		CompanyID: ID_Company,
 	}
 
 	result := db.Create(&product); 
@@ -37,7 +35,7 @@ func AddProduct(ctx *gin.Context){
 }
 
 func FindProduct(ctx *gin.Context) {
-	result := db.Find(&p)
+	result := db.Find(&p,"company_id=?",ID_Company)
 
 	if result.Error != nil {
 		ResponseJSON(ctx, 998, result.Error)
