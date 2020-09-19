@@ -47,8 +47,9 @@ func Login(ctx *gin.Context){
 
 	result := db.Where("username = ?", username).First(&u)
 
-	if result.Error != nil{
-		ResponseJSON(ctx, 998, result.Error)
+	if result.RowsAffected == 0 {
+		ResponseJSON(ctx, 997, "")
+		return
 	}
 
 	resultString, _ := json.Marshal(&result.Value)
@@ -59,10 +60,11 @@ func Login(ctx *gin.Context){
 
 	if r == false{
 		ResponseJSON(ctx, 997, "")
+		return
 	}
 
 	res := make(map[string]string)
-	res["token"], _ = CreateToken(user[0].ID)
+	res["token"], _ = CreateToken(user[0])
 	ResponseJSON(ctx, 100, res)
 }
 
