@@ -26,10 +26,14 @@ func CheckPasswordHash(password, hash string) bool {
 	return err == nil
 }
 
-func (u *Users) AfterSave(tx *gorm.DB) (err error) {
+func (u *Users) AfterSave(db *gorm.DB) (err error) {
 	company := Companies{
 		Name: u.CompanyName,
 	}
-	tx.Create(&company)
+	result := db.Create(&company)
+	if result.RowsAffected > 0 {
+		var user []Users
+		db.Model(&user).Where("id = ?", u.ID).Update("company_id", company.ID)
+	}
 	return
 }
