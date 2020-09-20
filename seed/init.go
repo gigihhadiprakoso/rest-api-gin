@@ -90,12 +90,62 @@ func Load(db *gorm.DB){
 		log.Fatalf("cannot migrate table: %v", err)
 	}
 
+	/*		Create Table Suppliers 		*/
+	err = db.Debug().DropTableIfExists(&Suppliers{}).Error
+	if err != nil {
+		log.Fatalf("cannot drop table: %v", err)
+	}
+	err = db.Debug().AutoMigrate(&Suppliers{}).Error
+	if err != nil {
+		log.Fatalf("cannot migrate table: %v", err)
+	}
+
+	/*		Create Table Customers 		*/
+	err = db.Debug().DropTableIfExists(&Customers{}).Error
+	if err != nil {
+		log.Fatalf("cannot drop table: %v", err)
+	}
+	err = db.Debug().AutoMigrate(&Customers{}).Error
+	if err != nil {
+		log.Fatalf("cannot migrate table: %v", err)
+	}
+
 	/*		Create Table Warehouses			*/
 	err = db.Debug().DropTableIfExists(&Warehouses{}).Error
 	if err != nil {
 		log.Fatalf("cannot drop table: %v", err)
 	}
 	err = db.Debug().AutoMigrate(&Warehouses{}).Error
+	if err != nil {
+		log.Fatalf("cannot migrate table: %v", err)
+	}
+
+	/*		Create Table Warehouse Products			*/
+	err = db.Debug().DropTableIfExists(&WarehouseProducts{}).Error
+	if err != nil {
+		log.Fatalf("cannot drop table: %v", err)
+	}
+	err = db.Debug().AutoMigrate(&WarehouseProducts{}).Error
+	if err != nil {
+		log.Fatalf("cannot migrate table: %v", err)
+	}
+
+	/*		Create Table Purchases			*/
+	err = db.Debug().DropTableIfExists(&Purchases{}).Error
+	if err != nil {
+		log.Fatalf("cannot drop table: %v", err)
+	}
+	err = db.Debug().AutoMigrate(&Purchases{}).Error
+	if err != nil {
+		log.Fatalf("cannot migrate table: %v", err)
+	}
+
+	/*		Create Table Purchase Details			*/
+	err = db.Debug().DropTableIfExists(&PurchaseDetails{}).Error
+	if err != nil {
+		log.Fatalf("cannot drop table: %v", err)
+	}
+	err = db.Debug().AutoMigrate(&PurchaseDetails{}).Error
 	if err != nil {
 		log.Fatalf("cannot migrate table: %v", err)
 	}
