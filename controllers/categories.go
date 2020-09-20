@@ -29,11 +29,13 @@ func AddCategory(ctx *gin.Context){
 	}
 }
 
-func FindCategory(ctx *gin.Context){
+func FindCategories(ctx *gin.Context){
 	result := db.Find(&c,"company_id=?",ID_Company)
 
 	if result.Error != nil {
 		ResponseJSON(ctx, 998, result.Error)
+	} else if result.RowsAffected == 0 {
+		ResponseJSON(ctx, 994, "")
 	} else {
 		ResponseJSON(ctx, 100, result.Value)
 	}
@@ -45,6 +47,8 @@ func FindCategoryByID(ctx *gin.Context){
 
 	if result.Error != nil {
 		ResponseJSON(ctx, 998, result.Error)
+	} else if result.RowsAffected == 0 {
+		ResponseJSON(ctx, 994, "")
 	} else {
 		ResponseJSON(ctx, 100, result.Value)
 	}
