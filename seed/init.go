@@ -30,6 +30,26 @@ func Load(db *gorm.DB){
 		log.Fatalf("cannot migrate table: %v", err)
 	}
 
+	/*		Create Table Units			*/
+	err = db.Debug().DropTableIfExists(&Units{}).Error
+	if err != nil {
+		log.Fatalf("cannot drop table: %v", err)
+	}
+	err = db.Debug().AutoMigrate(&Units{}).Error
+	if err != nil {
+		log.Fatalf("cannot migrate table: %v", err)
+	}
+
+	/*		Create Table Unit Types			*/
+	err = db.Debug().DropTableIfExists(&UnitTypes{}).Error
+	if err != nil {
+		log.Fatalf("cannot drop table: %v", err)
+	}
+	err = db.Debug().AutoMigrate(&UnitTypes{}).Error
+	if err != nil {
+		log.Fatalf("cannot migrate table: %v", err)
+	}
+
 	/*		Create Table Companies			*/
 	err = db.Debug().DropTableIfExists(&Companies{}).Error
 	if err != nil {
@@ -83,6 +103,20 @@ func Load(db *gorm.DB){
 	/*		Seeding			*/	
 	for i, _ := range categories {
 		err = db.Debug().Model(&Categories{}).Create(&categories[i]).Error
+		if err != nil {
+			log.Fatalf("cannot seed users table: %v", err)
+		}
+	}
+
+	for i, _ := range unit_types {
+		err = db.Debug().Model(&UnitTypes{}).Create(&unit_types[i]).Error
+		if err != nil {
+			log.Fatalf("cannot seed users table: %v", err)
+		}
+	}
+
+	for i, _ := range units {
+		err = db.Debug().Model(&Units{}).Create(&units[i]).Error
 		if err != nil {
 			log.Fatalf("cannot seed users table: %v", err)
 		}

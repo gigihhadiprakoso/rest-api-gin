@@ -4,12 +4,12 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-type Products struct {
+type Units struct {
 	gorm.Model
 	Name string
-	CategoryID uint
-	BrandID uint
+	Symbol string
+	UnitTypeID uint
 	CompanyID uint
-	UnitID uint
 	IsDeleted int8
 }
+
