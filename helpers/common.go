@@ -14,11 +14,10 @@ func msgError(code int) string {
 	var msg [999]string
 
 	msg[100]="Success"
-	msg[101]="haloo"
-	msg[2]="error nama "
-	msg[998]="Error"
-	msg[997]="Username / password tidak tepat"
-	msg[996]="Token API dibutuhkan"
+	msg[994]="Data tidak ditemukan"
 	msg[995]="Token sudah kedaluwarsa. Silakan login lagi"
+	msg[996]="Token API dibutuhkan"
+	msg[997]="Username / password tidak tepat"
+	msg[998]="Error"
 	return msg[code]
 }
