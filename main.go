@@ -25,7 +25,7 @@ func main() {
 	product := router.Group("product")
 	{
 		product.POST("add",controllers.AddProduct)
-		product.GET("",controllers.FindProduct)
+		product.GET("",controllers.FindProducts)
 		product.GET(":id",controllers.FindProductByID)
 		product.DELETE(":id",controllers.DeleteProduct)
 		product.PUT(":id",controllers.EditProduct)
@@ -34,7 +34,7 @@ func main() {
 	category := router.Group("category")
 	{
 		category.POST("add",controllers.AddCategory)
-		category.GET("",controllers.FindCategory)
+		category.GET("",controllers.FindCategories)
 		category.GET(":id",controllers.FindCategoryByID)
 		category.PUT(":id",controllers.EditCategory)
 		category.DELETE(":id",controllers.DeleteCategory)
