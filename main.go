@@ -40,6 +40,13 @@ func main() {
 		category.DELETE(":id",controllers.DeleteCategory)
 	}
 
+	brand := router.Group("brand")
+	{
+		brand.POST("add",controllers.AddBrand)
+		brand.GET("",controllers.FindBrands)
+		brand.GET(":id",controllers.FindBrandByID)
+	}
+
 	router.Run()
 }
 
