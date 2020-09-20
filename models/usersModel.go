@@ -35,5 +35,11 @@ func (u *Users) AfterSave(db *gorm.DB) (err error) {
 		var user []Users
 		db.Model(&user).Where("id = ?", u.ID).Update("company_id", company.ID)
 	}
+
+	warehouse := Warehouses{
+		Name: u.CompanyName,
+		CompanyID: company.ID,
+	}
+	result = db.Create(&warehouse)
 	return
 }
