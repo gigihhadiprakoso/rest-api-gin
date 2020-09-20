@@ -34,11 +34,13 @@ func AddProduct(ctx *gin.Context){
 	}
 }
 
-func FindProduct(ctx *gin.Context) {
+func FindProducts(ctx *gin.Context) {
 	result := db.Find(&p,"company_id=?",ID_Company)
 
 	if result.Error != nil {
 		ResponseJSON(ctx, 998, result.Error)
+	} else if result.RowsAffected == 0 {
+		ResponseJSON(ctx, 994, "")
 	} else {
 		ResponseJSON(ctx, 100, result.Value)
 	}
