@@ -4,6 +4,8 @@ import (
 	"net/http"
 	"github.com/gin-gonic/gin"
 	// "fmt"
+	"strconv"
+	"time"
 )
 
 func ResponseJSON(context *gin.Context, c int, data interface{}){
@@ -20,4 +22,8 @@ func msgError(code int) string {
 	msg[997]="Username / password tidak tepat"
 	msg[998]="Error"
 	return msg[code]
+}
+
+func GenerateReference() string{
+	return "REF/"+strconv.FormatInt(time.Now().Unix(),10)
 }

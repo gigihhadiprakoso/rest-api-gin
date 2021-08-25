@@ -26,7 +26,7 @@ func CheckPasswordHash(password, hash string) bool {
 	return err == nil
 }
 
-func (u *Users) AfterSave(db *gorm.DB) (err error) {
+func (u *Users) AfterCreate(db *gorm.DB) (err error) {
 	company := Companies{
 		Name: u.CompanyName,
 	}

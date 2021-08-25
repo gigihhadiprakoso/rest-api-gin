@@ -11,7 +11,6 @@ type Purchases struct {
 	Date time.Time
 	WarehouseID uint
 	SupplierID uint
-	CustomerID uint
 	CompanyID uint
 	IsDeleted int8
 }
